@@ -4,10 +4,10 @@
     <select id="get" resultType="com.example.hotel.models.response.CustomerResponse">
         select * from customer
         <where>
-            <if test="idCode != null || idCode != ''">
+            <if test="idCode != null and idCode != ''">
                 and id_code = #{idCode}
             </if>
-            <if test="name != null || name != ''">
+            <if test="name != null and name != ''">
                 and name ILIKE CONCAT('%' || #{name} || '%')
             </if>
         </where>
@@ -22,10 +22,10 @@
     <select id="count" resultType="Integer">
         select count(*) from customer
         <where>
-            <if test="idCode != null || idCode != ''">
+            <if test="idCode != null and idCode != ''">
                 and id_code = #{idCode}
             </if>
-            <if test="name != null || name != ''">
+            <if test="name != null and name != ''">
                 and name ILIKE CONCAT('%' || #{name} || '%')
             </if>
         </where>

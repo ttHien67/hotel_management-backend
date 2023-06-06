@@ -4,7 +4,7 @@
     <select id="get" resultType="com.example.hotel.models.response.ContactResponse">
         select * from contact
         <where>
-            <if test="name != null || name != '' ">
+            <if test="name != null and name != '' ">
                 name ILIKE CONCAT('%' || #{name} || '%')
             </if>
         </where>
@@ -19,7 +19,7 @@
     <select id="count" resultType="Integer">
         select count(*) from contact
         <where>
-            <if test="name != null || name != ''">
+            <if test="name != null and name != ''">
                 and name ILIKE CONCAT('%' || #{name} || '%')
             </if>
         </where>

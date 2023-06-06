@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.hotel.mappers.EmployeeMapper">
-    <select id="get" resultType="com.example.hotel.models.response.EmployeeResponse">
-        select * from employee
+<mapper namespace="com.example.hotel.mappers.ManagerMapper">
+    <select id="get" resultType="com.example.hotel.models.response.ManagerResponse">
+        <![CDATA[
+             select * from manager
+        ]]>
+
         <where>
             <if test="code != null and code != ''">
                 and code = #{code}
@@ -20,7 +23,7 @@
     </select>
 
     <select id="count" resultType="Integer">
-        select count(*) from employee
+        select count(*) from manager
         <where>
             <if test="code != null and code != ''">
                 and code = #{code}
@@ -31,21 +34,19 @@
         </where>
     </select>
 
-    <select id="checkEmployee" resultType="com.example.hotel.models.response.EmployeeResponse">
-        select * from employee
+    <select id="checkManager" resultType="com.example.hotel.models.response.ManagerResponse">
+        select * from manager
         where code = #{code}
         limit 1;
     </select>
 
-    <select id="create" resultType="com.example.hotel.models.response.EmployeeResponse" parameterType="com.example.hotel.models.request.EmployeeRequest">
-        INSERT INTO employee(
+    <select id="create" resultType="com.example.hotel.models.response.ManagerResponse" parameterType="com.example.hotel.models.request.ManagerRequest">
+        INSERT INTO manager(
             "name",
             "phone",
             "email",
             "address",
             "code",
-            "salary",
-            "position",
             "create_date"
         )VALUES(
             #{name},
@@ -53,29 +54,20 @@
             #{email},
             #{address},
             #{code},
-            #{salary},
-            #{position},
             NOW()
         ) RETURNING *;
     </select>
 
-    <select id="update" resultType="com.example.hotel.models.response.EmployeeResponse" parameterType="com.example.hotel.models.request.EmployeeRequest">
-        UPDATE employee
+    <select id="update" resultType="com.example.hotel.models.response.ManagerResponse" parameterType="com.example.hotel.models.request.ManagerRequest">
+        UPDATE manager
         SET
             "name" = #{name},
             "phone" = #{phone},
             "email" = #{email},
             "address" = #{address},
-            "salary" = #{salary},
-            "position" = #{position},
             "edit_date" = NOW()
         WHERE id = #{id}::uuid
         RETURNING *;
     </select>
 
-    <select id="delete" resultType="com.example.hotel.models.response.EmployeeResponse" parameterType="String">
-        DELETE FROM employee
-        WHERE id = #{id}::uuid
-        RETURNING *;
-    </select>
 </mapper>
