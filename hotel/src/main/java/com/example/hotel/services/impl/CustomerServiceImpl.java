@@ -12,6 +12,8 @@ import com.example.hotel.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CustomerServiceImpl implements ICustomerService {
 
@@ -22,7 +24,7 @@ public class CustomerServiceImpl implements ICustomerService {
         BaseResponse baseResponse = new BaseResponse();
         try{
             int countCustomer = mapper.count(request);
-            CustomerResponse result = mapper.get(request);
+            List<CustomerResponse> result = mapper.get(request);
 
             if(result != null) {
                 baseResponse = new BaseResponse(result, "0", "Get Successsfully");

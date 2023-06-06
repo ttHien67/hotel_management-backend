@@ -4,12 +4,14 @@ import com.example.hotel.models.request.EmployeeRequest;
 import com.example.hotel.models.response.EmployeeResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface EmployeeMapper {
 
     public int count(EmployeeRequest request);
 
-    public EmployeeResponse get(EmployeeRequest request);
+    public List<EmployeeResponse> get(EmployeeRequest request);
 
     public EmployeeResponse checkEmployee(String request);
 

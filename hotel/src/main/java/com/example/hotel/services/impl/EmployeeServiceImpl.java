@@ -8,6 +8,8 @@ import com.example.hotel.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeServiceImpl implements IEmployeeService {
 
@@ -18,7 +20,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         BaseResponse baseResponse = new BaseResponse();
         try{
             int countEmployee = mapper.count(request);
-            EmployeeResponse result = mapper.get(request);
+            List<EmployeeResponse> result = mapper.get(request);
 
             if(result != null) {
                 baseResponse = new BaseResponse(result, "0", "Get Successsfully");

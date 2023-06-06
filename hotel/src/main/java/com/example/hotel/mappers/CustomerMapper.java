@@ -4,12 +4,14 @@ import com.example.hotel.models.request.CustomerRequest;
 import com.example.hotel.models.response.CustomerResponse;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface CustomerMapper {
 
     public int count(CustomerRequest request);
 
-    public CustomerResponse get(CustomerRequest request);
+    public List<CustomerResponse> get(CustomerRequest request);
 
     public CustomerResponse checkCustomer(String idCode);
 
