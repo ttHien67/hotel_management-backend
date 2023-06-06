@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.hotel.mappers.RoomMapper">
+    <select id="getRoom" resultType="com.example.hotel.models.response.RoomResponse">
+        <![CDATA[
+        SELECT *
+        FROM room
+        ]]>
+        <where>
+            <if test="code !=null and code != ''">
+                and  code = #{code}
+            </if>
+            <if test="status != -1">
+                and status = #{status}
+            </if>
+            <if test="name != null and name != ''">
+                and name ILIKE CONCAT('%' || #{name} || '%')
+            </if>
+
+        </where>
+
+        ORDER BY create_date DESC
+        <if test="limit > 0">
+            OFFSET (#{page} - 1) * #{limit} FETCH NEXT #{limit} ROWS ONLY
+        </if>
+
+    </select>
+
+    <select id="countRoom" resultType="Integer">
+        SELECT count(*)
+        from room
+        <where>
+            <if test="code !=null and code != ''">
+                and  code = #{code}
+            </if>
+            <if test="status != -1">
+                and status = #{status}
+            </if>
+            <if test="name != null and name != ''">
+                and name ILIKE CONCAT('%' || #{name} || '%')
+            </if>
+
+        </where>
+    </select>
+
+    <select id="checkRoom" resultType="com.example.hotel.models.response.RoomResponse" parameterType="String">
+        SELECT * from room
+        where code = #{code}
+    </select>
+
+    <select id="create" resultType="com.example.hotel.models.response.RoomResponse" parameterType="com.example.hotel.models.request.RoomRequest">
+        INSERT INTO room(
+            "name",
+            "code",
+            "status",
+            "price",
+            "thumbnail",
+            "size",
+            "capacity",
+            "services",
+            "type",
+            "check_in",
+            "check_out",
+            "create_date"
+        )VALUES(
+            #{name},
+            #{code},
+            #{status},
+            #{price},
+            #{thumbnail},
+            #{size},
+            #{capacity},
+            #{services},
+            #{type},
+            #{checkIn},
+            #{checkOut},
+            NOW()
+        ) RETURNING *;
+    </select>
+
+    <select id="update" resultType="com.example.hotel.models.response.RoomResponse" parameterType="com.example.hotel.models.request.RoomRequest">
+        UPDATE room
+        SET
+            "name" = #{name},
+            "status" = #{status},
+            "price" = #{price},
+            "thumbnail" = #{thumbnail},
+            "size" = #{size},
+            "capacity" = #{capacity},
+            "services" = #{services},
+            "type" = #{type},
+            "check_in" = #{checkIn},
+            "check_out" = #{checkOut},
+            "edit_date" = NOW()
+        WHERE id = #{id}::uuid
+        RETURNING *;
+    </select>
+
+    <select id="delete" resultType="com.example.hotel.models.response.RoomResponse">
+        DELETE FROM room
+        where id = #{id}
+        RETURNING *;
+    </select>
+</mapper>
