@@ -6,15 +6,24 @@ public class RoomResponse {
     private String name;
     private float price;
     private String thumbnail;
+    private String description;
     private int status;
     private String checkIn;
     private String checkOut;
     private float size;
-    private String capacity;
+    private int capacity;
     private String services;
     private String type;
     private String create_date;
     private String edit_date;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public float getPrice() {
         return price;
@@ -96,11 +105,11 @@ public class RoomResponse {
         this.size = size;
     }
 
-    public String getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(String capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 

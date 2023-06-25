@@ -7,16 +7,25 @@ public class RoomRequest {
     private float price;
     private String thumbnail;
     private int status;
+    private String description;
     private String checkIn;
     private String checkOut;
     private float size;
-    private String capacity;
+    private int capacity;
     private String services;
     private String type;
     private String create_date;
     private String edit_date;
     private int limit;
     private int page;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getLimit() {
         return limit;
@@ -114,11 +123,11 @@ public class RoomRequest {
         this.size = size;
     }
 
-    public String getCapacity() {
+    public int getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(String capacity) {
+    public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
 

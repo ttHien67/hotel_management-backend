@@ -7,6 +7,9 @@
         FROM room
         ]]>
         <where>
+            <if test="id != null and id != '' ">
+                and id = #{id}::uuid
+            </if>
             <if test="code !=null and code != ''">
                 and  code = #{code}
             </if>
@@ -43,7 +46,7 @@
         </where>
     </select>
 
-    <select id="checkRoom" resultType="com.example.hotel.models.response.RoomResponse" parameterType="String">
+    <select id="checkRoomCode" resultType="com.example.hotel.models.response.RoomResponse" parameterType="String">
         SELECT * from room
         where code = #{code}
     </select>
@@ -86,6 +89,7 @@
             "price" = #{price},
             "thumbnail" = #{thumbnail},
             "size" = #{size},
+            "description" = #{description},
             "capacity" = #{capacity},
             "services" = #{services},
             "type" = #{type},
@@ -100,5 +104,17 @@
         DELETE FROM room
         where id = #{id}
         RETURNING *;
+    </select>
+
+    <select id="checkRoom" parameterType="com.example.hotel.models.request.BookingRoomRequest" resultType="com.example.hotel.models.response.RoomResponse">
+        select * from room
+        <where>
+            <if test="checkIn != null and checkIn != ''">
+                and CAST(#{checkIn} AS DATE) > check_out::date
+            </if>
+            <if test="quantityGuest != null and quantityGuest != ''">
+                and capacity >= #{quantityGuest}
+            </if>
+        </where>
     </select>
 </mapper>

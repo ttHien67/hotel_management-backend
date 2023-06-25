@@ -1,6 +1,7 @@
 package com.example.hotel.mappers;
 
 
+import com.example.hotel.models.request.BookingRoomRequest;
 import com.example.hotel.models.request.RoomRequest;
 import com.example.hotel.models.response.RoomResponse;
 import org.springframework.stereotype.Service;
@@ -13,13 +14,15 @@ public interface RoomMapper {
 
     int countRoom(RoomRequest request);
 
-    RoomResponse checkRoom(String code);
+    RoomResponse checkRoomCode(String code);
 
     RoomResponse create(RoomRequest request);
 
     RoomResponse update(RoomRequest request);
 
     RoomResponse delete(String id);
+
+    List<RoomResponse> checkRoom(BookingRoomRequest request);
 
 
 }

@@ -1,6 +1,7 @@
 package com.example.hotel.services.impl;
 
 import com.example.hotel.mappers.RoomMapper;
+import com.example.hotel.models.request.BookingRoomRequest;
 import com.example.hotel.models.request.RoomRequest;
 import com.example.hotel.models.response.BaseResponse;
 import com.example.hotel.models.response.RoomResponse;
@@ -8,6 +9,9 @@ import com.example.hotel.services.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,7 +49,7 @@ public class RoomServiceImpl implements IRoomService {
         BaseResponse baseResponse = new BaseResponse();
 
         try{
-            RoomResponse checkRoomExistion = mapper.checkRoom(request.getCode());
+            RoomResponse checkRoomExistion = mapper.checkRoomCode(request.getCode());
 
             if(checkRoomExistion != null) {
                 baseResponse = new BaseResponse("1", "Room has existed");
@@ -91,6 +95,23 @@ public class RoomServiceImpl implements IRoomService {
                 baseResponse = new BaseResponse("0", "Delete Successfully");
             }
         }catch (Exception e){
+            baseResponse = new BaseResponse("1", "Failed");
+            return baseResponse;
+        }
+        return baseResponse;
+    }
+
+    public BaseResponse checkRoom(BookingRoomRequest request) {
+        BaseResponse baseResponse = new BaseResponse();
+        try{
+            List<RoomResponse> isAvailable = mapper.checkRoom(request);
+
+            if(isAvailable != null) {
+                baseResponse = new BaseResponse(isAvailable, "0", "Room is Available");
+            }else {
+                baseResponse = new BaseResponse("1", "Room is not available");
+            }
+        }catch (Exception e) {
             baseResponse = new BaseResponse("1", "Failed");
             return baseResponse;
         }

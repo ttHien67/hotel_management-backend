@@ -1,6 +1,7 @@
 package com.example.hotel.controllers;
 
 
+import com.example.hotel.models.request.BookingRoomRequest;
 import com.example.hotel.models.request.RoomRequest;
 import com.example.hotel.models.response.BaseResponse;
 import com.example.hotel.services.IRoomService;
@@ -17,7 +18,7 @@ public class RoomController {
     @Autowired
     private IRoomService roomService;
 
-    @GetMapping(value = "/getRoom", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/getRoom", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseResponse> getRoom(@RequestBody RoomRequest request) {
         return new ResponseEntity<>(roomService.getRoom(request), HttpStatus.OK);
     }
@@ -35,6 +36,11 @@ public class RoomController {
     @PostMapping(value = "/deleteRoom", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BaseResponse> deleteRoom(@RequestBody RoomRequest request) {
         return new ResponseEntity<>(roomService.deleteRoom(request), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/checkRoom", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BaseResponse> checkRoom(@RequestBody BookingRoomRequest request){
+        return new ResponseEntity<>(roomService.checkRoom(request), HttpStatus.OK);
     }
 
 }

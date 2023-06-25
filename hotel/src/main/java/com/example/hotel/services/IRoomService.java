@@ -1,6 +1,7 @@
 package com.example.hotel.services;
 
 
+import com.example.hotel.models.request.BookingRoomRequest;
 import com.example.hotel.models.request.RoomRequest;
 import com.example.hotel.models.response.BaseResponse;
 
@@ -13,5 +14,7 @@ public interface IRoomService {
     public BaseResponse updateRoom(RoomRequest request);
 
     public BaseResponse deleteRoom(RoomRequest request);
+
+    public BaseResponse checkRoom(BookingRoomRequest request);
 
 }
