@@ -9,9 +9,6 @@ import com.example.hotel.services.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -106,7 +103,7 @@ public class RoomServiceImpl implements IRoomService {
         try{
             List<RoomResponse> isAvailable = mapper.checkRoom(request);
 
-            if(isAvailable != null) {
+            if(isAvailable.size() != 0) {
                 baseResponse = new BaseResponse(isAvailable, "0", "Room is Available");
             }else {
                 baseResponse = new BaseResponse("1", "Room is not available");

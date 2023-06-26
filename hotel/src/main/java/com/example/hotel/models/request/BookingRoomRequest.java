@@ -3,10 +3,19 @@ package com.example.hotel.models.request;
 import java.sql.Timestamp;
 
 public class BookingRoomRequest {
+    private String id;
     private String checkIn;
     private String checkOut;
     private int quantityGuest;
     private int quantityRoom;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getCheckIn() {
         return checkIn;

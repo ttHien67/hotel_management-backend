@@ -115,6 +115,9 @@
             <if test="quantityGuest != null and quantityGuest != ''">
                 and capacity >= #{quantityGuest}
             </if>
+            <if test="id !=null and id != ''">
+                and id = #{id}::uuid
+            </if>
         </where>
     </select>
 </mapper>
